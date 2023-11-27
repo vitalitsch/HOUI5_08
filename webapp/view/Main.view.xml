@@ -1,0 +1,12 @@
+<mvc:View controllerName="de.huberit.training08.zhoui5.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:s="sap.f.semantic"
+    xmlns="sap.m">
+    <s:SemanticPage id="main_page">
+        <s:titleHeading>
+            <Title text="{i18n>main.title}"  id="maintitle"/>
+        </s:titleHeading>
+        <s:content>
+        </s:content>
+    </s:SemanticPage>
+</mvc:View>

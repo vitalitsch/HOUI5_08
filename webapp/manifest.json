@@ -78,20 +78,20 @@
       },
       "routes": [
         {
-          "name": "RouteCustomer",
+          "name": "Main",
           "pattern": ":?query:",
           "target": [
-            "TargetCustomer"
+            "TargetMain"
           ]
         }
       ],
       "targets": {
-        "TargetCustomer": {
+        "TargetMain": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "Customer",
-          "viewName": "Customer"
+          "viewId": "Main",
+          "viewName": "Main"
         }
       }
     },

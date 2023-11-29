@@ -1,33 +1,15 @@
-<mvc:View
-    controllerName="de.huberit.training08.zhoui5.controller.Customer"
-    xmlns:mvc="sap.ui.core.mvc"
-    displayBlock="true"
-    xmlns="sap.m"
-    xmlns:f="sap.ui.layout.form"
+<core:FragmentDefinition
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns:core="sap.ui.core"
     xmlns:u="sap.uxap"
->
-<u:ObjectPageLayout id="ObjectPageLayout"
-    showTitleInHeaderContent="true"
-    upperCaseAnchorBar="false"
-    showFooter="{= ${editModel>/editmode}}">
-    <u:headerTitle>
-        <u:ObjectPageDynamicHeaderTitle>
-            <u:expandedHeading>
-                <Title text="Kundendetails" />
-            </u:expandedHeading>
-            <u:actions>
-                    <Button id="app_edit_button" text="{i18n>edit}" type="Emphasized" icon="sap-icon://edit" 
-                    press="onEditPressed" visible="{= !${editModel>/editmode}}" />
-				</u:actions>
-        </u:ObjectPageDynamicHeaderTitle>
-    </u:headerTitle>
-    <u:sections>
-        <u:ObjectPageSection>
+    xmlns:f="sap.ui.layout.form"
+    xmlns:s="sap.f.semantic"
+    xmlns="sap.m">
+     <u:ObjectPageSection>
             <u:subSections>
                 <u:ObjectPageSubSection>
                     <u:blocks>
-                        <f:SimpleForm title="{Firstname} {Lastname}">
+                        <f:SimpleForm title="{Firstname} {Lastname}" editable="true">
                             <Label text="{i18n>app.customerid}" labelFor="customerid" />
                             <Text id="customerid" text="{Customerid}" />
                             <Label text="{i18n>app.firstname}" labelFor="firstname" />
@@ -36,8 +18,9 @@
                             <Text id="lastname" text="{Lastname}" />
                             <Label text="{i18n>app.title}" labelFor="title" />
                             <Text id="title" text="{Title}" />
+                            <Label text="{i18n>app.gender}" labelFor="gender" />                        
                             <Label text="{i18n>app.gender}" labelFor="gender" />
-                            <Text id="gender" text="{path: 'Gender', formatter: '.genderFormatter'}" />
+                            <Text id="gender" text="{= ${Gender} === '1' ? ${i18n>female} : ${i18n>male} }" />
                             <Label text="{i18n>app.email}" labelFor="email" />
                             <Text id="email" text="{Email}" />
                             <Label text="{i18n>app.phone}" labelFor="phone" />
@@ -51,15 +34,4 @@
                 </u:ObjectPageSubSection>
             </u:subSections>
         </u:ObjectPageSection>
-    </u:sections>
-    <u:footer>
-            <Toolbar id="app_bar_footer">
-                <ToolbarSpacer />
-                <Button id="app_save_button" text="{i18n>save}" type="Accept" icon="sap-icon://save" 
-                press="onSavePressed" visible="{= ${editModel>/editmode}}" />
-                <Button id="app_cancel_button" text="{i18n>cancel}" type="Reject" icon="sap-icon://cancel" 
-                press="onCancelPressed" visible="{= ${editModel>/editmode}}" />
-            </Toolbar>
-        </u:footer>
-</u:ObjectPageLayout>
-</mvc:View>
+</core:FragmentDefinition>

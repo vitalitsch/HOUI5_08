@@ -94,7 +94,7 @@
         },
         {
           "name": "Customer",
-          "pattern": "/customer",
+          "pattern": "customer/{path}",
           "target": [
             "TargetCustomer"
           ]

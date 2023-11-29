@@ -44,14 +44,14 @@
                     </Column>
                 </columns>
                 <items>
-                    <ColumnListItem>
+                    <ColumnListItem press="onListItemClicked" type="Navigation" >
                         <cells>
                             <ObjectIdentifier title="{Customerid}"/>
                             <Text text="{Firstname}"/>
                             <Text text="{Lastname}"/>
                             <Text text="{Title}"/>
-                            <Text text="{Birthdate}"/>
-                            <Text text="{Birthdate}"/>
+                            <Text text="{path: 'Gender', formatter: '.genderFormatter'}"/>
+                            <Text text="{path: 'Birthdate', formatter: '.dateFormatter'}"/>
                             <Text text="{Email}"/>
                             <Text text="{Phone}"/>
                             <Link text="{Website}" href="https://{Website}" target="_blank"/>

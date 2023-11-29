@@ -1,9 +1,11 @@
 sap.ui.define([
-  "sap/ui/core/mvc/Controller"
-], function (Controller) {
+  "sap/ui/core/mvc/Controller",
+  "de/huberit/training08/zhoui5/data/formatter/Formatter"
+], function (Controller, Formatter) {
   "use strict";
 
   return Controller.extend("de.huberit.training08.zhoui5.controller.Main", {
+    formatter: Formatter,
     onInit: function () {
 
     },

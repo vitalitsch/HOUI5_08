@@ -50,8 +50,8 @@
                             <Text text="{Firstname}"/>
                             <Text text="{Lastname}"/>
                             <Text text="{Title}"/>
-                            <Text text="{path: 'Gender', formatter: '.genderFormatter'}"/>
-                            <Text text="{path: 'Birthdate', formatter: '.dateFormatter'}"/>
+                            <Text text="{path: 'Gender', formatter: '.formatter.gender'}"/>
+                            <Text text="{path: 'Birthdate', formatter: '.formatter.date'}"/>
                             <Text text="{Email}"/>
                             <Text text="{Phone}"/>
                             <Link text="{Website}" href="https://{Website}" target="_blank"/>

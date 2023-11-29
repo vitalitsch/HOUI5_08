@@ -72,9 +72,5 @@ sap.ui.define([
                 let path = oEvent.getParameters().arguments["path"];
                 this.getView().bindElement(decodeURIComponent(path));
             },
-            dateFormatter: function (sDate) {
-                let dateObj = new Date(sDate);
-                return dateObj.getDate() + "." + (dateObj.getMonth() + 1) + "." + dateObj.getFullYear();
-            },
         });
     });

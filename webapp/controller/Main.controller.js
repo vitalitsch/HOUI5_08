@@ -9,13 +9,6 @@ sap.ui.define([
     onInit: function () {
 
     },
-    genderFormatter: function (sKey) {
-      return this.getView().getModel("i18n").getResourceBundle().getText(sKey);
-    },
-    dateFormatter: function (sDate) {
-      let dateObj = new Date(sDate);
-      return dateObj.getDate() + "." + (dateObj.getMonth() + 1) + "." + dateObj.getFullYear();
-    },
     onListItemClicked: function (oEvent) {
       const sPath = oEvent.getSource().getBindingContext().getPath();
       this.getOwnerComponent().getRouter().navTo("Customer", {

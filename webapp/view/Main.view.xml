@@ -13,7 +13,7 @@
             />
         </s:titleHeading>
         <s:content>
-            <Table items="{/customers}" id="main_table" headerText="{i18n>main.table.title}">
+            <Table items="{/Z_P_CUSTOMER}" id="main_table" headerText="{i18n>main.table.title}">
                 <columns>
                     <Column id="idMainColumn">
                         <Text id="main_text_customerid" text="{i18n>app.customerid}"/>

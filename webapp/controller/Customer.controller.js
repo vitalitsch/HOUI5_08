@@ -58,9 +58,11 @@ sap.ui.define([
             },
 
             onSavePressed: function () {
+
                 let oModel = this.getView().getModel();
                 let oData = oModel.getData();
-                MessageBox.success(JSON.stringify(oData));
+
+                oModel.submitChanges();
 
                 this._toggleEdit(false);
             },

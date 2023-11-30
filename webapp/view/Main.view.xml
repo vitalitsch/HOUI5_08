@@ -14,6 +14,10 @@
         </s:titleHeading>
         <s:content>
             <Table items="{/Z_P_CUSTOMER}" id="main_table" headerText="{i18n>main.table.title}">
+                <headerToolbar>
+                <Toolbar>
+                <Button id="main_button_create" icon="sap-icon://add" type="Transparent" text="{i18n>main.create.button}" press="onCreatePressed"/></Toolbar>
+                </headerToolbar>
                 <columns>
                     <Column id="idMainColumn">
                         <Text id="main_text_customerid" text="{i18n>app.customerid}"/>

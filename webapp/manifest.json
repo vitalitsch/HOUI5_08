@@ -126,6 +126,13 @@
           "target": [
             "TargetCustomer"
           ]
+        },
+        {
+          "name": "CreateCustomer",
+          "pattern": "createcustomer",
+          "target": [
+            "TargetCustomer"
+          ]
         }
       ],
       "targets": {

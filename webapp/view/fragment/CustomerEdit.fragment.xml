@@ -25,7 +25,7 @@
                         <Label text="{i18n>app.gender}" labelFor="gender" />
                         <Select id="gender" selectedKey="{Gender}" items="{genderModel>/genders}">
                             <items>
-                                <core:Item key="{genderModel>key}" text="{path: 'genderModel>text', formatter: '.formatter.gender'}" />
+                                <core:Item key="{genderModel>key}" text="{path: 'genderModel>key', formatter: '.formatter.gender'}" />
                             </items>
                         </Select>
 
@@ -39,7 +39,7 @@
                         <Input id="website" value="{Website}" />
 
                         <Label text="{i18n>app.birthdate}" labelFor="birthdate" />
-                        <DatePicker id="birthdate" type="Date" value="{path: 'Birthdate', formatter: '.formatter.date'}" />
+                        <DatePicker id="birthdate" type="Date" value="{path: 'Birthdate', type: 'sap.ui.model.type.Date'}" />
                     </f:SimpleForm>
                 </u:blocks>
             </u:ObjectPageSubSection>             

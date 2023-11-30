@@ -3,7 +3,7 @@ sap.ui.define([], function () {
     return {
         gender: function (sKey) {
             let sGenderName;
-            if (sKey === 1) {
+            if (sKey == 1) {
                 sGenderName = 'female';
             } else {
                 sGenderName = 'male';

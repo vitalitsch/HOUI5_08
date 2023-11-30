@@ -14,6 +14,11 @@ sap.ui.define([
       this.getOwnerComponent().getRouter().navTo("Customer", {
         path: encodeURIComponent(sPath)
       }, false);
+    },
+    onCreatePressed: function (oEvent) {
+      this.getOwnerComponent().getRouter().navTo("CreateCustomer", null, false);
+
     }
+
   });
 });

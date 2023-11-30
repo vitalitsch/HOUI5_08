@@ -15,17 +15,21 @@ sap.ui.define([
             _fragmentList: {},
             formatter: Formatter,
             onInit: function () {
-                this.getOwnerComponent().getRouter().getRoute("Customer").attachPatternMatched(this._onPatternMatched, this);
-                const oRouter = this.getOwnerComponent().getRouter();
-                const oEditModel = new JSONModel({
+                // this.getOwnerComponent().getRouter().getRoute("Customer").attachPatternMatched(this._onPatternMatched, this);
+                // const oRouter = this.getOwnerComponent().getRouter();
+                // const oEditModel = new JSONModel({
+                //     editmode: false
+                // });
+
+                // this.getView().setModel(oEditModel, "editModel");
+                // this._showCustomerFragment("CustomerDisplay");
+                let oEditModel = new JSONModel({
                     editmode: false
                 });
-
-                // this.setContentDensity();
-
                 this.getView().setModel(oEditModel, "editModel");
-                this._showCustomerFragment("CustomerDisplay");
-
+                let oRouter = this.getOwnerComponent().getRouter();
+                oRouter.getRoute("Customer").attachPatternMatched(this._onPatternMatched, this);
+                oRouter.getRoute("CreateCustomer").attachPatternMatched(this._onCreatePatternMatched, this);
             },
             _showCustomerFragment: function (sFragmentName) {
                 let page = this.getView().byId("ObjectPageLayout");
@@ -61,18 +65,60 @@ sap.ui.define([
 
                 let oModel = this.getView().getModel();
                 let oData = oModel.getData();
+                this._toggleEdit(false);
+                // oModel.submitChanges();
+                oModel.submitChanges({
+                    success: function (oData, response) {
+                        MessageBox.success("Erfolgreich gespeichert!");
+                    }.bind(this),
+                    error: function (oErorr) {
+                        MessageBox.error("Speichern fehlgeschlagen");
+                    }.bind(this)
+                });
 
-                oModel.submitChanges();
+            },
 
+            onNavBack: function () {
+                var oHistory = History.getInstance();
+                var sPreviousHash = oHistory.getPreviousHash();
+
+                if (sPreviousHash !== undefined) {
+                    window.history.go(-1);
+                } else {
+                    var oRouter = this.getOwnerComponent().getRouter();
+                    oRouter.navTo("Main", {}, true);
+                }
                 this._toggleEdit(false);
             },
 
             onCancelPressed: function () {
+
+
+                const oModel = this.getView().getModel();
+
+                if (oModel.hasPendingChanges()) {
+                    oModel.resetChanges()
+                }
+
                 this._toggleEdit(false);
+
+                if (this.bCreate) {
+                    this.bCreate = !this.bCreate;
+                    this.onNavBack();
+                }
             },
             _onPatternMatched: function (oEvent) {
                 let path = oEvent.getParameters().arguments["path"];
                 this.getView().bindElement(decodeURIComponent(path));
+            },
+            _onCreatePatternMatched: function (oEvent) {
+                this.bCreate = true;
+
+                let oNewCustomerContext = this.getView().getModel().createEntry("/Z_P_CUSTOMER");
+                this.getView().bindElement(oNewCustomerContext.getPath());
+
+                this.getView().getModel("editModel").setProperty("/editmode", true);
+                this._showCustomerFragment("CustomerEdit");
             },
         });
     });

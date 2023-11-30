@@ -1,33 +1,29 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "de/huberit/training08/zhoui5/controller/BaseController",
     "sap/m/MessageBox",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
-    "de/huberit/training08/zhoui5/data/formatter/Formatter"
+    "de/huberit/training08/zhoui5/data/formatter/Formatter",
+    "sap/ui/core/History"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, MessageBox, JSONModel, Fragment, Formatter) {
+    function (BaseController, MessageBox, JSONModel, Fragment, Formatter, History) {
         "use strict";
 
-        return Controller.extend("de.huberit.training08.zhoui5.controller.Customer", {
+        return BaseController.extend("de.huberit.training08.zhoui5.controller.Customer", {
             _fragmentList: {},
             formatter: Formatter,
             onInit: function () {
-                // this.getOwnerComponent().getRouter().getRoute("Customer").attachPatternMatched(this._onPatternMatched, this);
-                // const oRouter = this.getOwnerComponent().getRouter();
-                // const oEditModel = new JSONModel({
-                //     editmode: false
-                // });
 
-                // this.getView().setModel(oEditModel, "editModel");
-                // this._showCustomerFragment("CustomerDisplay");
                 let oEditModel = new JSONModel({
                     editmode: false
                 });
+
+                this.setContentDensity();
                 this.getView().setModel(oEditModel, "editModel");
-                let oRouter = this.getOwnerComponent().getRouter();
+                let oRouter = this.getRouter();
                 oRouter.getRoute("Customer").attachPatternMatched(this._onPatternMatched, this);
                 oRouter.getRoute("CreateCustomer").attachPatternMatched(this._onCreatePatternMatched, this);
             },
@@ -63,22 +59,34 @@ sap.ui.define([
 
             onSavePressed: function () {
 
-                let oModel = this.getView().getModel();
-                let oData = oModel.getData();
-                this._toggleEdit(false);
-                // oModel.submitChanges();
-                oModel.submitChanges({
-                    success: function (oData, response) {
-                        MessageBox.success("Erfolgreich gespeichert!");
-                    }.bind(this),
-                    error: function (oErorr) {
-                        MessageBox.error("Speichern fehlgeschlagen");
-                    }.bind(this)
-                });
+                const oModel = this.getView().getModel();
+                const sSuccessText = this.bCreate ? "Erfolgreich hinzugefügt" : "Erfolgreich geändert!";
 
+                this.getView().setBusy(true);
+
+                oModel.submitChanges({
+                    success: (oData, response) => {
+                        MessageBox.success(sSuccessText, {
+                            onClose: () => {
+                                if (this.bCreate) {
+                                    this._toggleEdit(false);
+                                    oModel.refresh(true);
+                                    this.getOwnerComponent().getRouter().navTo("Main", {}, true);
+                                    //this.onNavBack();
+                                } else {
+                                    this._toggleEdit(false);
+                                }
+                            }
+                        });
+                    },
+                    error: (oError) => {
+                        MessageBox.error(oError.message);
+                    }
+                });
+                this.getView().setBusy(false);
             },
 
-            onNavBack: function () {
+            onNavBack: function (navigate) {
                 var oHistory = History.getInstance();
                 var sPreviousHash = oHistory.getPreviousHash();
 
@@ -110,6 +118,7 @@ sap.ui.define([
             _onPatternMatched: function (oEvent) {
                 let path = oEvent.getParameters().arguments["path"];
                 this.getView().bindElement(decodeURIComponent(path));
+                this._showCustomerFragment("CustomerDisplay");
             },
             _onCreatePatternMatched: function (oEvent) {
                 this.bCreate = true;

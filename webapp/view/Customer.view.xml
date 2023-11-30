@@ -14,14 +14,30 @@
     <u:headerTitle>
         <u:ObjectPageDynamicHeaderTitle>
             <u:expandedHeading>
-                <Title text="Kundendetails" />
+                <Title text="{Firstname} {Lastname}" />
             </u:expandedHeading>
+            <u:snappedHeading>
+                <FlexBox fitContainer="true" alignItems="Center">
+                    <Avatar src="sap-icon://person-placeholder" class="sapUiTinyMarginEnd"/>
+                    <Title text="{Firstname} {Lastname}"/>
+                </FlexBox>
+            </u:snappedHeading>
             <u:actions>
                     <Button id="app_edit_button" text="{i18n>edit}" type="Emphasized" icon="sap-icon://edit" 
-                    press="onEditPressed" visible="{= !${editModel>/editmode}}" />
+                    press="onEditPressed" visible="{= !${editModel>/editmode}}"  class="sapUiTinyMarginEnd" />
 				</u:actions>
         </u:ObjectPageDynamicHeaderTitle>
     </u:headerTitle>
+    <u:headerContent>
+        <FlexBox >
+            <Avatar class="sapUiSmallMarginEnd" src="sap-icon://person-placeholder" displaySize="L" />
+
+            <VBox >
+                <Label text="{/#Z_P_CUSTOMERType/Birthdate/@sap:label}" labelFor="cust_header_birthdate"/>
+                <Title id="cust_header_birthdate" text="{path: 'Birthdate', formatter: '.dateFormatter'}" titleStyle="H6"/>
+            </VBox>
+        </FlexBox>
+    </u:headerContent>
     <u:sections>
         
     </u:sections>
